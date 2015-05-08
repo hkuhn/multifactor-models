@@ -5,7 +5,7 @@ import random
 # training testing proportions
 training_size = 0.75
 test_size = 1.0 - training_size
-divisor = 5.0
+divisor = 10.0
 
 # retrieve data locations
 #	should be in the format 'ticker', 'path'
@@ -92,10 +92,28 @@ print "\n\n\n\n"
 
 
 
+
+
+# TESTING BETA PARAMETER ESTIMATION:
+#	Test Beta by treating it as an independent variable
+#	Solve for lambda_0, the factor premia not associated with our beta
+
+testing_means = testing_returns_data.mean()
+testing_covariance_matrix = testing_returns_data.cov()
+
+testing_betas = testing_covariance_matrix['SPY'] / testing_covariance_matrix['SPY']['SPY']
+testing_alphas = testing_means - testing_betas * testing_means['SPY']
+
+
+
+
 # TESTING PHASE
+#	Testing if the beta factor are priced in the cross-section
+#	Use the beta trained to estimate return on test data
 testing_ones = ones((1, len(testing_returns_data.index)))
 Rm_testing = testing_returns_data['SPY'].as_matrix().reshape(1, len(testing_returns_data.index))
-testing_predicted_returns_matrix = multiply(alphas_matrix, testing_ones) + betas_matrix * Rm_testing + multiply(epsilon_matrix, testing_ones)
+#testing_predicted_returns_matrix = multiply(alphas_matrix, testing_ones) + betas_matrix * Rm_testing + multiply(epsilon_matrix, testing_ones)
+testing_predicted_returns_matrix = betas_matrix * Rm_testing
 testing_predicted_returns_matrix = testing_predicted_returns_matrix.transpose()
 testing_predicted_returns = DataFrame(data=testing_predicted_returns_matrix, index=testing_returns_data.index, columns=testing_returns_data.columns)
 differences = testing_returns_data.subtract(testing_predicted_returns)
