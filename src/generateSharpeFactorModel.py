@@ -5,19 +5,18 @@ from pandas import *
 dataLocations = read_csv('config/dataLocations.csv', encoding='utf-8')
 
 # read data and store in a data frame
-#	master_returns_data
+#	master_price_data
 #		[ ticker vs date and adj close]
 monthly_data = read_csv(dataLocations['path'].iloc[0])
-master_returns_data = DataFrame(index=monthly_data['Date'], columns=dataLocations['ticker'])
+master_price_data = DataFrame(index=monthly_data['Date'], columns=dataLocations['ticker'])
 for index, row in dataLocations.iterrows():
 	monthly_data = read_csv(row['path'])
-	returns = monthly_data.set_index('Date')['Adj Close'].to_dict()
-	returns_series = Series(returns)
-	master_returns_data[row['ticker']] = returns_series
+	prices = monthly_data.set_index('Date')['Adj Close'].to_dict()
+	prices_series = Series(returns)
+	master_price_data[row['ticker']] = prices_series
 
 # get market data
-market_data = master_returns_data['SPY']
+master_price_data = master_price_data.sort()
 
-# compute parameters (betas, variance) of assets
-for item in master_returns_data:
-	asset_return_matrix = item[1]['Adj Close']
+# compute monthly returns data
+master_returns_data = master_price_data.pct_change(periods=1, fill_method='pad')
