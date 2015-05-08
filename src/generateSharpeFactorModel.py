@@ -94,19 +94,6 @@ variance =  multiply(multiply(epsilon_matrix, epsilon_matrix), 1.0/(len(training
 
 
 
-# TESTING BETA PARAMETER ESTIMATION:
-#	Test Beta by treating it as an independent variable
-#	Solve for lambda_0, the factor premia not associated with our beta
-
-testing_means = testing_returns_data.mean()
-testing_covariance_matrix = testing_returns_data.cov()
-
-testing_betas = testing_covariance_matrix['SPY'] / testing_covariance_matrix['SPY']['SPY']
-testing_alphas = testing_means - testing_betas * testing_means['SPY']
-
-
-
-
 # TESTING PHASE
 #	Testing if the beta factor are priced in the cross-section
 #	Use the beta trained to estimate return on test data
