@@ -1,0 +1,10 @@
+ticker,path
+ARRS,../data/SharpeFactorModel/ARRS_monthly.csv
+CTL,../data/SharpeFactorModel/CTL_monthly.csv
+FFIV,../data/SharpeFactorModel/FFIV_monthly.csv
+HRS,../data/SharpeFactorModel/HRS_monthly.csv
+IDCC,../data/SharpeFactorModel/IDCC_monthly.csv
+PANW,../data/SharpeFactorModel/PANW_monthly.csv
+T,../data/SharpeFactorModel/T_monthly.csv
+TDS,../data/SharpeFactorModel/TDS_monthly.csv
+SPY,../data/SharpeFactorModel/SPY_monthly.csv
