@@ -73,20 +73,20 @@ epsilon_matrix = epsilon_returns.as_matrix().reshape(len(epsilon_returns.index),
 variance =  multiply(multiply(epsilon_matrix, epsilon_matrix), 1.0/(len(training_returns_data.index) - 2.0))
 
 
-print "TRAINING A SHARPE FACTOR MODEL COMPLETE: "
-print "number of training examples: " + str(num_train)
-print "number of testing examples: " + str(len(master_price_data.index) - num_train)
-print "Parameters Learned: "
-print "\n\n\n\n"
-print "Alphas: "
-print DataFrame(data=[alphas], index=["alphas"], columns=alphas.index)
-print "\n\n\n\n"
-print "Betas: "
-print DataFrame(data=[betas], index=["betas"], columns=betas.index)
-print "\n\n\n\n"
-print "Epsilon Returns: "
-print DataFrame(data=[epsilon_returns], index=["epsilon"], columns=epsilon_returns.index)
-print "\n\n\n\n"
+#print "TRAINING A SHARPE FACTOR MODEL COMPLETE: "
+#print "number of training examples: " + str(num_train)
+#print "number of testing examples: " + str(len(master_price_data.index) - num_train)
+#print "Parameters Learned: "
+#print "\n\n\n\n"
+#print "Alphas: "
+#print DataFrame(data=[alphas], index=["alphas"], columns=alphas.index)
+#print "\n\n\n\n"
+#print "Betas: "
+#print DataFrame(data=[betas], index=["betas"], columns=betas.index)
+#print "\n\n\n\n"
+#print "Epsilon Returns: "
+#print DataFrame(data=[epsilon_returns], index=["epsilon"], columns=epsilon_returns.index)
+#print "\n\n\n\n"
 
 
 
@@ -112,8 +112,7 @@ testing_alphas = testing_means - testing_betas * testing_means['SPY']
 #	Use the beta trained to estimate return on test data
 testing_ones = ones((1, len(testing_returns_data.index)))
 Rm_testing = testing_returns_data['SPY'].as_matrix().reshape(1, len(testing_returns_data.index))
-#testing_predicted_returns_matrix = multiply(alphas_matrix, testing_ones) + betas_matrix * Rm_testing + multiply(epsilon_matrix, testing_ones)
-testing_predicted_returns_matrix = betas_matrix * Rm_testing
+testing_predicted_returns_matrix = multiply(alphas_matrix, testing_ones) + betas_matrix * Rm_testing + multiply(epsilon_matrix, testing_ones)
 testing_predicted_returns_matrix = testing_predicted_returns_matrix.transpose()
 testing_predicted_returns = DataFrame(data=testing_predicted_returns_matrix, index=testing_returns_data.index, columns=testing_returns_data.columns)
 differences = testing_returns_data.subtract(testing_predicted_returns)
@@ -125,12 +124,12 @@ ss_tot = (difference_between_mean ** 2).sum()
 r_squared = 1.0 - (ss_res / ss_tot)
 mse_data = ss_res / (len(testing_returns_data.index))
 
-print "TESTING RESULTS: "
-print "R squared: "
-print DataFrame(data=[r_squared], index=["r squared"], columns=r_squared.index)
-print "\n\n\n\n"
-print "MSE: "
-print DataFrame(data=[mse_data], index=["MSE"], columns=mse_data.index)
-print "\n\n\n\n"
+#print "TESTING RESULTS: "
+#print "R squared: "
+#print DataFrame(data=[r_squared], index=["r squared"], columns=r_squared.index)
+#print "\n\n\n\n"
+#print "MSE: "
+#print DataFrame(data=[mse_data], index=["MSE"], columns=mse_data.index)
+#print "\n\n\n\n"
 
 
