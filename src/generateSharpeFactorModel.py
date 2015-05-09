@@ -1,6 +1,10 @@
 from pandas import *
 from numpy import *
 import random
+import matplotlib
+import matplotlib.pyplot as plt 
+
+matplotlib.style.use('ggplot')
 
 # training testing proportions
 training_size = 0.75
@@ -119,4 +123,10 @@ mse_data = ss_res / (len(testing_returns_data.index))
 #print DataFrame(data=[mse_data], index=["MSE"], columns=mse_data.index)
 #print "\n\n\n\n"
 
+
+
+# PLOTTING
+#plotting_data = master_returns_data.loc[:,['XLU', 'XLI', 'SPY']]
+#plt.figure(); plotting_data.plot(title="Returns of Utilities, Industrials, and the S&P500")
+#plt.show()
 

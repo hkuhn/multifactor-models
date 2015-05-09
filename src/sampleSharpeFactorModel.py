@@ -1,4 +1,5 @@
 from pandas import *
+import matplotlib
 
 
 print "Running Experiment..."
@@ -33,3 +34,5 @@ print alphas_table.mean()
 print "\n\n"
 print "Average Betas: "
 print betas_table.mean()
+
+
