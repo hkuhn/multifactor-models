@@ -130,3 +130,11 @@ mse_data = ss_res / (len(testing_returns_data.index))
 #plt.figure(); plotting_data.plot(title="Returns of Utilities, Industrials, and the S&P500")
 #plt.show()
 
+#plotting_data = master_returns_data.loc[:,['XLI', 'SPY']]
+#plt.figure()
+#plotting_data.plot(x="SPY", y="XLI", kind="scatter", title="Beta Regression on XLI")
+#line_plot = linspace(-0.4,0.4,100)
+#plt.plot(line_plot, line_plot*betas["XLI"] + alphas["XLI"])
+#plt.show()
+
+
