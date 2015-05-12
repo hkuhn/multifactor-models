@@ -13,4 +13,5 @@ monthly_returns = read_csv('../../data/2-assessment-of-single-factor-model/month
 benchmark_monthly_returns = read_csv('../../data/2-assessment-of-single-factor-model/monthly-benchmark-returns.csv', encoding='utf-8')
 beginning_index = monthly_returns[monthly_returns['Date'] == beginning_date].index.tolist()
 ending_index = monthly_returns[monthly_returns['Date'] == ending_date].index.tolist()
-monthly_returns = monthly_returns['Date'][beginning_index[0]:ending_index[0]]
+monthly_returns = monthly_returns[beginning_index[0]:ending_index[0]]
+benchmark_monthly_returns = benchmark_monthly_returns[beginning_index[0]:ending_index[0]]
