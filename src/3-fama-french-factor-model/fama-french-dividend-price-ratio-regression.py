@@ -42,12 +42,13 @@ dp_monthly_returns['SMB'] = mkt_monthly_returns['SMB']
 dp_monthly_returns['HML'] = mkt_monthly_returns['HML']
 monthly_returns = dp_monthly_returns
 
+result_list = {}
 for index in monthly_returns.ix[:,:-4].keys():
 	X = transpose(array([monthly_returns["Mkt-RF"], monthly_returns["SMB"], monthly_returns["HML"]]))
 	y = monthly_returns[index]
 	X = sm.add_constant(X)
 	result = sm.OLS(y, X).fit()
 	print result.summary()
-
+	result_list[index] = result
 
 
