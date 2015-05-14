@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt 
 from scipy import stats
 import statsmodels.api as sm
+from mpl_toolkits.mplot3d import Axes3D
 
 beginning_date = 196401
 ending_date = 201201
@@ -51,4 +52,16 @@ for index in monthly_returns.ix[:,:-4].keys():
 	print result.summary()
 	result_list[index] = result
 
+
+#plotting_data = dp_monthly_returns.loc[:,['Dec 2', 'Mkt-RF', 'SMB']]
+#plt.figure()
+#plotting_data.plot(x="Mkt-RF", y="Dec 2", z="SMB", kind="scatter", title="Beta Regression on Dec 2")
+#line_plot = linspace(-20,20,400)
+#plt.plot(line_plot, line_plot*result_list["Dec 2"].params[1] + result_list["Dec 2"].params[0])
+#plt.show()
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+ax.scatter(monthly_returns["SMB"], monthly_returns["Mkt-RF"], monthly_returns["Dec 2"])
+
+plt.show()
 

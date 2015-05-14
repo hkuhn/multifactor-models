@@ -27,3 +27,19 @@ for index in monthly_returns.ix[:,1:].keys():
 	result = sm.OLS(y, X).fit()
 	print result.summary()
 
+
+# # PLOTTING
+# plotting_data = monthly_returns.loc[:,['SMB', 'HML', 'Rm- Rf']]
+# plotting_data["Rm- Rf"]
+# fig = plt.figure()
+# ax1 = fig.add_subplot(111)
+# ax1.scatter(plotting_data["Rm- Rf"], plotting_data["HML"], c='b', marker='s', label="HML")
+# ax1.scatter(plotting_data["Rm- Rf"], plotting_data["SMB"], c='r', marker='o', label="SMB")
+# #plotting_data.plot(x="Rm- Rf", y="HML", kind="scatter")
+# line_plot = linspace(-20,20,600)
+# ax1.plot(line_plot, line_plot*betas["SMB"] + alphas["SMB"], c='r')
+# #plotting_data.plot(x="Rm- Rf", y="SMB", kind="scatter")
+# another_line_plot = linspace(-20,20,600)
+# ax1.plot(another_line_plot, another_line_plot*betas["HML"] + alphas["HML"], c='b')
+# plt.legend(loc='upper left')
+# plt.show()
