@@ -13,9 +13,13 @@ ending_date = 201201
 # retrieve data and select data from 1964 to 2011
 monthly_returns = read_csv('../../data/2-assessment-of-single-factor-model/monthly-equal-weighted-returns.csv')
 benchmark_monthly_returns = read_csv('../../data/2-assessment-of-single-factor-model/monthly-benchmark-returns.csv')
+
 beginning_index = monthly_returns[monthly_returns['Date'] == beginning_date].index.tolist()
 ending_index = monthly_returns[monthly_returns['Date'] == ending_date].index.tolist()
 monthly_returns = monthly_returns[beginning_index[0]:ending_index[0]]
+
+beginning_index = benchmark_monthly_returns[benchmark_monthly_returns['Date'] == beginning_date].index.tolist()
+ending_index = benchmark_monthly_returns[benchmark_monthly_returns['Date'] == ending_date].index.tolist()
 benchmark_monthly_returns = benchmark_monthly_returns[beginning_index[0]:ending_index[0]]
 
 monthly_returns['Rm- Rf'] = benchmark_monthly_returns['Rm- Rf']
