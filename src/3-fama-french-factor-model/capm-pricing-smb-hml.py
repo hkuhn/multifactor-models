@@ -1,6 +1,4 @@
-# Question 1:
-#
-#
+
 from pandas import *
 from numpy import *
 from scipy import stats
