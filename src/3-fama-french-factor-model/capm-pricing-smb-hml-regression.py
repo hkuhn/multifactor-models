@@ -18,11 +18,12 @@ monthly_returns = monthly_returns[beginning_index[0]:ending_index[0]]
 
 # remove date
 monthly_returns = monthly_returns.ix[:,1:]
+monthly_returns = monthly_returns.reset_index()
 
 for index in monthly_returns.ix[:,1:].keys():
 	X = transpose(array([monthly_returns["Rm- Rf"]]))
 	y = monthly_returns[index]
 	X = sm.add_constant(X)
 	result = sm.OLS(y, X).fit()
-	result.summary()
+	print result.summary()
 

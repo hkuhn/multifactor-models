@@ -18,8 +18,10 @@ mkt_monthly_returns = mkt_monthly_returns[["Date", "Mkt-RF", "RF"]]
 
 beginning_index = dp_monthly_returns[dp_monthly_returns['Date'] == beginning_date].index.tolist()
 ending_index = dp_monthly_returns[dp_monthly_returns['Date'] == ending_date].index.tolist()
-
 dp_monthly_returns = dp_monthly_returns[beginning_index[0]:ending_index[0]]
+
+beginning_index = mkt_monthly_returns[mkt_monthly_returns['Date'] == beginning_date].index.tolist()
+ending_index = mkt_monthly_returns[mkt_monthly_returns['Date'] == ending_date].index.tolist()
 mkt_monthly_returns = mkt_monthly_returns[beginning_index[0]:ending_index[0]]
 
 # remove date

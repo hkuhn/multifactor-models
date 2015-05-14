@@ -18,13 +18,17 @@ mkt_monthly_returns = mkt_monthly_returns[["Date", "Mkt-RF", "RF"]]
 
 beginning_index = dp_monthly_returns[dp_monthly_returns['Date'] == beginning_date].index.tolist()
 ending_index = dp_monthly_returns[dp_monthly_returns['Date'] == ending_date].index.tolist()
-
 dp_monthly_returns = dp_monthly_returns[beginning_index[0]:ending_index[0]]
+
+beginning_index = mkt_monthly_returns[mkt_monthly_returns['Date'] == beginning_date].index.tolist()
+ending_index = mkt_monthly_returns[mkt_monthly_returns['Date'] == ending_date].index.tolist()
 mkt_monthly_returns = mkt_monthly_returns[beginning_index[0]:ending_index[0]]
 
-# remove date
+# index on date
 dp_monthly_returns = dp_monthly_returns.ix[:,1:]
 mkt_monthly_returns = mkt_monthly_returns.ix[:,1:]
+dp_monthly_returns = dp_monthly_returns.reset_index()
+mkt_monthly_returns = mkt_monthly_returns.reset_index()
 
 # subtract RF from DP returns
 dp_keys = dp_monthly_returns.keys()
@@ -42,5 +46,5 @@ for index in monthly_returns.ix[:,:-2].keys():
 	y = monthly_returns[index]
 	X = sm.add_constant(X)
 	result = sm.OLS(y, X).fit()
-	result.summary()
+	print result.summary()
 
