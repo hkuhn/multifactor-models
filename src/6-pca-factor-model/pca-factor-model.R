@@ -31,12 +31,34 @@ covariance = cov(input_data)
 decomposition = eigen(covariance)
 eigenvalues = decomposition$values
 eigenvectors = decomposition$vectors
-barchart(sqrt(eigenvaues))
+#barchart(sqrt(eigenvaues))
 
 # retrieve factor loadings
-factor_loadings = input_data * eigenvectors
+factor_loadings = data.matrix(input_data) %*% data.matrix(eigenvectors)
 
 # retrieve top 3 factors
 f1 = factor_loadings[,1]
 f2 = factor_loadings[,2]
 f3 = factor_loadings[,3]
+
+
+# retrieve test results using Fama French 3 Factor Model
+X = data.matrix(monthly_returns[ c("Mkt.RF", "SMB", "HML") ])
+for (index in colnames(input_data)) {
+	y = data.matrix(input_data[index])
+	regression_model = lm(y ~ X)
+	print(index)
+	print(summary(regression_model))
+}
+
+# retrieve test results using PCA 3 Factor Model
+X = data.matrix(factor_loadings[,1:3])
+for (index in colnames(input_data)) {
+	y = data.matrix(input_data[index])
+	regression_model = lm(y ~ X)
+	print(index)
+	print(summary(regression_model))
+}
+
+
+
