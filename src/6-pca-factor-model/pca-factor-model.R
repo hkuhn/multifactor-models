@@ -22,6 +22,10 @@ input_data = input_data[beginning_index:ending_index, ]
 # remove date column
 monthly_returns = monthly_returns[, 2:ncol(monthly_returns)]
 input_data = input_data[, 2:ncol(input_data)]
+dp_keys = colnames(input_data)
+for (index in dp_keys) {
+	input_data[index] = input_data[index] - monthly_returns['RF']
+}
 
 # Calculate the covariance matrix on the input data
 covariance = cov(input_data)
