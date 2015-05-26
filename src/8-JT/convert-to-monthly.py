@@ -43,7 +43,7 @@ for item in os.listdir(directory):
 		#	reset the return chain
 		if current_date[5:7] != current_period[4:6] and len(return_chain) >= 10:
 			return_chain = [x + 1.0 for x in return_chain]
-			monthly_return = pow(reduce(lambda x, y: x*y, return_chain), 1.0/float(len(return_chain))) - 1
+			monthly_return = reduce(lambda x, y: x*y, return_chain) - 1
 			monthly_returns[current_period] = monthly_return
 			return_chain = []
 			current_period = ""

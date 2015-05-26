@@ -7,10 +7,10 @@ stocks = read_csv('../../data/8-JT/companylist.csv')
 # get interval
 start_month = "06"
 start_day = "01"
-start_year = "1984"
+start_year = "1962"
 end_month = "06"
 end_day = "01"
-end_year = "2010"
+end_year = "1989"
 
 
 for symbol in stocks["Symbol"]:
