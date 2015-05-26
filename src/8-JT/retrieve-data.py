@@ -5,12 +5,12 @@ import urllib2
 # get stock list
 stocks = read_csv('../../data/8-JT/companylist.csv')
 # get interval
-start_month = "06"
+start_month = "01"
 start_day = "01"
 start_year = "1962"
-end_month = "06"
+end_month = "01"
 end_day = "01"
-end_year = "1989"
+end_year = "1990"
 
 
 for symbol in stocks["Symbol"]:

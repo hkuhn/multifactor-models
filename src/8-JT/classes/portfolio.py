@@ -57,7 +57,7 @@ class Portfolio:
 	def calculateReturn(self, date, returns_row):
 		portfolio_return_list = []
 		for position in self.positions_list:
-			position_return = position.calculateReturn(date, returns_row)
+			position_return = position.calculateLongReturn(date, returns_row) - position.calculateShortReturn(date, returns_row)
 			portfolio_return_list.append(position_return)
 		if len(portfolio_return_list) > 0:
 			portfolio_return = float(sum(portfolio_return_list)) / float(len(portfolio_return_list))

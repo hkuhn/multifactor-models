@@ -5,11 +5,12 @@ from pandas import *
 from numpy import *
 from classes import Portfolio
 from classes import Position
+import matplotlib.pyplot as plt 
 
 #######################
 # HEADER
 #######################
-beginning_date = 197107
+beginning_date = 196301
 
 
 #######################
@@ -62,10 +63,10 @@ for t in range(beginning_index, len(master_returns)):
 	date = master_returns["Date"].iloc[t]
 	print "Current Date: " + str(date)
 	print "Generating Deciles..."
-	JQ1_returns = ((master_returns.iloc[t-2:t+1] + 1).prod(axis=0).pow(0.33333, axis=0) - 1).dropna()
-	JQ2_returns = ((master_returns.iloc[t-5:t+1] + 1).prod(axis=0).pow(0.16667, axis=0) - 1).dropna()
-	JQ3_returns = ((master_returns.iloc[t-8:t+1] + 1).prod(axis=0).pow(0.11111, axis=0) - 1).dropna()
-	JQ4_returns = ((master_returns.iloc[t-11:t+1] + 1).prod(axis=0).pow(0.08333, axis=0) - 1).dropna()
+	JQ1_returns = ((master_returns.iloc[t-2:t+1] + 1).prod(axis=0) - 1).dropna()
+	JQ2_returns = ((master_returns.iloc[t-5:t+1] + 1).prod(axis=0) - 1).dropna()
+	JQ3_returns = ((master_returns.iloc[t-8:t+1] + 1).prod(axis=0) - 1).dropna()
+	JQ4_returns = ((master_returns.iloc[t-11:t+1] + 1).prod(axis=0) - 1).dropna()
 	##
 	# SORT RETURNS
 	##
@@ -91,6 +92,10 @@ for t in range(beginning_index, len(master_returns)):
 	JQ3_bottom_decile = JQ3_returns[len(JQ3_returns) - int(math.ceil(len(JQ3_returns) / 10.0)):]
 	JQ4_top_decile = JQ4_returns[0:int(math.ceil(len(JQ4_returns) / 10.0))]
 	JQ4_bottom_decile = JQ4_returns[len(JQ4_returns) - int(math.ceil(len(JQ4_returns) / 10.0)):]
+	JQ1_bottom_decile = JQ1_bottom_decile[JQ1_bottom_decile < 0]
+	JQ2_bottom_decile = JQ2_bottom_decile[JQ2_bottom_decile < 0]
+	JQ3_bottom_decile = JQ3_bottom_decile[JQ3_bottom_decile < 0]
+	JQ4_bottom_decile = JQ4_bottom_decile[JQ4_bottom_decile < 0]
 	##
 	# MEASURE PERFORMANCE FOR MONTH T (UPDATES DONE AT END OF YEAR)
 	# LIQUIDATE DEAD POSITIONS
@@ -145,6 +150,23 @@ for i in range(1, len(portfolios)):
 results = results.sort("Date")
 print results.mean()
 print results.mean() / results.sem(axis=0)
+results.to_csv('./results.csv')
+
+value = {beginning_date: 1}
+for t in range(1, len(results)):
+	value[results.iloc[t]["Date"]] = value[results.iloc[t-1]["Date"]] * (1+results.iloc[t]["J: 12, K: 3"])
+
+benchmark = {beginning_date: 1}
+for t in range(beginning_index+1, len(master_returns)):
+	benchmark[master_returns.iloc[t]["Date"]] = benchmark[master_returns.iloc[t-1]["Date"]] * (1 + master_returns.iloc[t][1:].sum() / float(len(master_returns)))
+
+value_frame = Series(value)
+benchmark_frame = Series(benchmark)
+plt.figure(); value_frame.plot(title="J: 12, K: 3 Value of $1");
+benchmark_frame.plot()
+plt.show()
+
+
 
 
 
