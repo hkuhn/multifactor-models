@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 #######################
 # HEADER
 #######################
-beginning_date = 196301
+beginning_date = 196501
 
 
 #######################
@@ -39,6 +39,7 @@ else:
 		returns_data.rename(columns={'Return':os.path.splitext(item)[0]}, inplace=True)
 		master_returns = merge(master_returns, returns_data, how="left", on="Date")
 	master_returns.to_csv(master_returns_file)
+
 print "Data Retrieval Completed"
 
 
@@ -138,6 +139,7 @@ for t in range(beginning_index, len(master_returns)):
 			portfolio.addPosition(Position(JQ4_top_decile.index, JQ4_bottom_decile.index, 9))
 		elif portfolio.getName() == "J: 12, K: 12":
 			portfolio.addPosition(Position(JQ4_top_decile.index, JQ4_bottom_decile.index, 12))
+
 
 ##
 # SUMMARIZE RESULTS
