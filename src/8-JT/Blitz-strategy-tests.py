@@ -144,21 +144,21 @@ for i in range(1, len(portfolios)):
 results = results.sort("Date")
 print results.mean()
 print results.mean() / results.sem(axis=0)
-results.to_csv('./Blitz-results.csv')
+results.to_csv('./blitz_results.csv')
 
-value = {str(int(beginning_date)): 1}
-for t in range(1, len(results)):
-	value[str(int(results.iloc[t]["Date"]))] = value[str(int(results.iloc[t-1]["Date"]))] * (1+results.iloc[t]["J: 12-1M, K: 3"])
+# value = {str(int(beginning_date)): 1}
+# for t in range(1, len(results)):
+# 	value[str(int(results.iloc[t]["Date"]))] = value[str(int(results.iloc[t-1]["Date"]))] * (1+results.iloc[t]["J: 12-1M, K: 3"])
 
-benchmark = {str(int(beginning_date)): 1}
-for t in range(beginning_index+1, ending_index):
-	benchmark[str(int(master_returns.iloc[t]["Date"]))] = benchmark[str(int(master_returns.iloc[t-1]["Date"]))] * (1 + master_returns.iloc[t][1:].sum() / float(len(master_returns)))
+# benchmark = {str(int(beginning_date)): 1}
+# for t in range(beginning_index+1, ending_index):
+# 	benchmark[str(int(master_returns.iloc[t]["Date"]))] = benchmark[str(int(master_returns.iloc[t-1]["Date"]))] * (1 + master_returns.iloc[t][1:].sum() / float(len(master_returns)))
 
-value_frame = Series(value)
-benchmark_frame = Series(benchmark)
-plt.figure(); value_frame.plot(title="J: 12-1M, K: 3 Value of $1");
-benchmark_frame.plot()
-plt.show()
+# value_frame = Series(value)
+# benchmark_frame = Series(benchmark)
+# plt.figure(); value_frame.plot(title="J: 12-1M, K: 3 Value of $1");
+# benchmark_frame.plot()
+# plt.show()
 
 
 

@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 # HEADER
 #######################
 beginning_date = 196501
+ending_date = 201001
 
 
 #######################
@@ -58,9 +59,10 @@ for k in range (3, 15, 3):
 #######################
 print "Beginning Experiment"
 beginning_index = master_returns[master_returns['Date'] == beginning_date].index.tolist()[0]
+ending_index = master_returns[master_returns['Date'] == ending_date].index.tolist()[0]
 
 #for t in range(beginning_index, len(master_returns)):
-for t in range(beginning_index, len(master_returns)):
+for t in range(beginning_index, ending_index):
 	date = master_returns["Date"].iloc[t]
 	print "Current Date: " + str(date)
 	print "Generating Deciles..."
@@ -152,21 +154,21 @@ for i in range(1, len(portfolios)):
 results = results.sort("Date")
 print results.mean()
 print results.mean() / results.sem(axis=0)
-results.to_csv('./results.csv')
+results.to_csv('./jk_results.csv')
 
-value = {beginning_date: 1}
-for t in range(1, len(results)):
-	value[results.iloc[t]["Date"]] = value[results.iloc[t-1]["Date"]] * (1+results.iloc[t]["J: 12, K: 3"])
+# value = {beginning_date: 1}
+# for t in range(1, len(results)):
+# 	value[results.iloc[t]["Date"]] = value[results.iloc[t-1]["Date"]] * (1+results.iloc[t]["J: 12, K: 3"])
 
-benchmark = {beginning_date: 1}
-for t in range(beginning_index+1, len(master_returns)):
-	benchmark[master_returns.iloc[t]["Date"]] = benchmark[master_returns.iloc[t-1]["Date"]] * (1 + master_returns.iloc[t][1:].sum() / float(len(master_returns)))
+# benchmark = {beginning_date: 1}
+# for t in range(beginning_index+1, len(master_returns)):
+# 	benchmark[master_returns.iloc[t]["Date"]] = benchmark[master_returns.iloc[t-1]["Date"]] * (1 + master_returns.iloc[t][1:].sum() / float(len(master_returns)))
 
-value_frame = Series(value)
-benchmark_frame = Series(benchmark)
-plt.figure(); value_frame.plot(title="J: 12, K: 3 Value of $1");
-benchmark_frame.plot()
-plt.show()
+# value_frame = Series(value)
+# benchmark_frame = Series(benchmark)
+# plt.figure(); value_frame.plot(title="J: 12, K: 3 Value of $1");
+# benchmark_frame.plot()
+# plt.show()
 
 
 
